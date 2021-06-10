@@ -76,5 +76,22 @@ def profile(request):
         return render(request,'profile.html',{'user':user})
 
 def update(request):
-    pass
+
+    if request.method=="POST":
+        new_fname=request.POST['fname']
+        new_lname=request.POST['lname']
+        new_email=request.POST['nemail']
+        user_id=request.session['log_id']
+        user=Registration.objects.get(login=user_id)
+        print(user.firstname)
+        user.firstname=new_fname
+        user.lastname=new_lname
+        user.email=new_email
+        user.save()
+        print(user.firstname)
+        print('updated----------')
+        return HttpResponse('updated')
+    user_id=request.session['log_id']
+    user=Registration.objects.get(login=user_id)
+    return render(request,'update.html',{'user':user})
 # Create your views here.

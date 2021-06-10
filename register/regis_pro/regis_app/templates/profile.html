@@ -40,7 +40,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">         
-                    <form action="profile" method="POST">
+                    <form action="{% url 'profile' %}" method="POST">
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="">Firstname</label>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>update</h1>
+    <form action="/new/update" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="">Firstname</label>
+            <input type="text" class="form-control" placeholder="enter new firstname" value="{{user.firstname}}" id="" name="fname">
+        </div>
+        <div class="form-group">
+            <label for="">Lastname</label>
+            <input type="text" class="form-control" placeholder="enter new lastname" value="{{user.lastname}}" id="" name="lname">
+        </div>
+        <div class="form-group">
+            <label for="">email</label>
+            <input type="text" class="form-control" placeholder="enter new email" id="" value="{{user.email}}" name="nemail">
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" data-dismiss="modal">Save Changes</button>
+        </div>
+    </form>
+</body>
+</html>
