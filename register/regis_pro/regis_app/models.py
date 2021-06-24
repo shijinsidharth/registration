@@ -14,3 +14,9 @@ class Registration(models.Model):
     lastname=models.CharField(max_length=20)  
     email=models.CharField(max_length=254)
     login=ForeignKey(Login,on_delete=models.CASCADE)
+    propic=models.FileField(upload_to='gallery/')
+
+class Card(models.Model):
+    title=models.CharField(max_length=30)
+    description=models.TextField()
+    photo=models.FileField(upload_to='gallery/')

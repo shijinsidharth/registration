@@ -7,15 +7,51 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="login" method="POST">
+    <form action="login" method="POST" onsubmit="return validate_login()">
         {% csrf_token %}
         <label>username</label>
-        <input type="text" placeholder="enter username" name="username"><br>
+        <input type="text" placeholder="enter username" id="username" name="username"><br>
         <label for="">Password</label>
-        <input type="text" placeholder="enter password" name="password"><br>
-        <button type="submit">LOGIN</button>
+        <input type="text" placeholder="enter password" id="userpassword"name="password"><br>
+        <small id="usrerror"></small>
+        <small id="paserror"></small>
+        <button type="submit" >LOGIN</button>
 
     </form>
-    {{ error }}
+    <!-- {{ error }} -->
+    <script>
+        function validate_login() {
+            status = 1;
+            username = document.getElementById("username");
+            password = document.getElementById("userpassword");
+            if (username.value == "") {
+                status = 0;
+                username.style.borderColor = "red";
+                usrerror.style.display = "block";
+                usrerror.innerHTML = "enter username";
+
+            }
+            else{
+                status = 1;
+                username.style.borderColor = "black";
+                usrerror.style.display = "none";
+            }
+            if(userpassword.value.trim().length<8) {
+                status = 0;
+                userpassword.style.borderColor = "red";
+                paserror.style.display = "block";
+                paserror.innerHTML = "enter password";
+
+            }
+            else{
+                userpassword.style.borderColor = "black";
+                paserror.style.display = "none";
+                status = 1;
+            }
+            if (status == 0){
+                return false;
+            }   
+        }
+    </script>
 </body>
 </html>

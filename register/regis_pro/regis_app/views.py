@@ -1,7 +1,9 @@
 # from register.regis_pro.regis_app.models import Registration
+from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
-from django.http import HttpResponse
-from .models import Login, Registration
+from django.http import HttpResponse,JsonResponse
+from django.urls.resolvers import CheckURLMixin
+from .models import *
 def Testfn(request):
     return HttpResponse('hloo')
 def html1(request):
@@ -12,9 +14,10 @@ def html1(request):
             username=request.POST['user_name']
             email=request.POST['email']
             password=request.POST['pass']
+            propic=request.FILES['pic']
             login=Login(username=username,password=password)
             login.save()
-            person=Registration(firstname=firstname,lastname=lastname,email=email,login=login)
+            person=Registration(firstname=firstname,lastname=lastname,email=email,login=login,propic=propic)
             person.save()
             return render(request,'reg.html',{'msg':'registered'})
         except Exception as error:
@@ -30,9 +33,10 @@ def reg1(request):
     username=request.POST['user_name']
     email=request.POST['email']
     password=request.POST['pass']
+    propic=request.FILES['pic']
     login=Login(username=username,password=password)
     login.save()
-    person=Registration(firstname=firstname,lastname=lastname,email=email,login=login)
+    person=Registration(firstname=firstname,lastname=lastname,email=email,login=login,propic=propic)
     person.save()
     return HttpResponse('registered succesfully')
 def views1(request):
@@ -93,5 +97,43 @@ def update(request):
         return HttpResponse('updated')
     user_id=request.session['log_id']
     user=Registration.objects.get(login=user_id)
-    return render(request,'update.html',{'user':user})
+    return render(request,'update.html',{'user'})
+
+def insert(request):
+    if request.method=="POST":
+        title=request.POST['title']
+        description=request.POST['description']
+        image=request.FILES['photo']
+        print(image)
+        district=Card(title=title,description=description,photo=image)
+        district.save()
+        return HttpResponse('inserted',image)
+    return render(request,'add_destination.html')
+
+def show(request):
+    dis=Card.objects.all()
+    return render(request,'dynamic.html',{'sample':dis})
+def logout(request):
+    del request.session['log_id']
+    return render(request,'home.html')
+def json(request):
+    return JsonResponse(
+        {"name":"John", "age":30, "city":"New York","hobby":['reading','singing','dancing']}
+    )
+    # datas=Card.objects.values()
+    # data=list(datas)
+    # return JsonResponse({
+    #     'data1':data
+    # })
+
+
+
+# def checkusername(request):
+#     username=request.GET['username']
+#     print(username)
+#     check=Login.objects.filter(username=username).exist()
+#     print(check)
+#     return JsonResponse({
+#         'exist':check
+#     })
 # Create your views here.

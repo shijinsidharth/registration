@@ -5,12 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 </head>
 <body>
     <div>
         <table align="center" border="1px" width="50%" cellspacing="10" cellpadding="10">
 
-        <form action="html1" method="POST">
+        <form action="html1" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <tr><td align="center" border="0"><h1>REGISTRATION FORM</h1></td></tr>
             <tr><td align="center"><label for="">First Name : </label>
@@ -18,19 +19,43 @@
             <tr><td align="center"><label for="">Last Name : </label>
             <input type="text" placeholder="Enter lastname" name="last_name"></td></tr><br>
             <tr><td align="center"><label for="">Username : </label>
-            <input type="text" placeholder="Enter username" required name="user_name"></td></tr><br>
+            <input type="text" placeholder="Enter username" id="username" name="user_name"></td></tr><br>
             <tr><td align="center"><label for="">E-mail : </label>
             <input type="text" placeholder="Enter E-mail id" required name="email"></td></tr><br>
             <tr><td align="center"><label for="">Password : </label>
-            <input type="text" placeholder="Enter Password" required name="pass"></td></tr><br>
+            <input type="text" placeholder="Enter Password" name="pass" id="userpassword"></td></tr><br>
+            <tr><td align="center"><label for="">profile picture</label>
+            <input type="file" name="pic"></td></tr>
             <tr><td align="center"><button type="submit">REGISTER</button></td></tr>
+
 
 
         </form>
         
         </table>
+        <!-- <script>
+            $(function(){
+                $('#username').blur(function(){
+                    username=$('#username').val()
+                    console.log(username)
+                    $.ajax({
+                        url:'checkusername',
+                        type:'GET',
+                        data:{'username':username},
+                        success:function(response){
+                            if(response.exist){
+                                
+                            }
+                            console.log(response.exist)
+                        }
+                    })
+                })
+            })
+        </script> -->
 
     </div>
     {{ msg }}
+
+
 </body>
 </html>

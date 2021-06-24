@@ -1,3 +1,4 @@
+from os import name
 from django.urls import path
 from.import views
 urlpatterns=[
@@ -8,5 +9,10 @@ urlpatterns=[
     path('login',views.login,name="login"),
     path('home',views.home,name="home"),
     path('profile',views.profile,name="profile"),
-    path('update',views.update,name="update")
+    path('update',views.update,name="update"),
+    path('insert',views.insert,name="insert"),
+    path('show',views.show,name="show"),
+    path('logout',views.logout,name="logout"),
+    path('json',views.json,name="json"),
+    # path('checkusername',views.checkusername,name="checkusername")
 ]
